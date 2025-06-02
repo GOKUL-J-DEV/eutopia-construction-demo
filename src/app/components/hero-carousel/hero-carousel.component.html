@@ -1,0 +1,42 @@
+<section class="relative h-screen overflow-hidden" id="hero-carousel">
+  @for (slide of slides; track $index;let i = $index ) {
+  <div
+    class="slide absolute inset-0 bg-cover bg-center transition-opacity duration-700"
+    [ngClass]="{
+      'slide-active opacity-100 z-10': i === activeIndex,
+      'opacity-0 z-0': i !== activeIndex
+    }"
+    [style.backgroundImage]="
+      'linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(' +
+      slide.imageUrl +
+      ')'
+    "
+  >
+    <div class="absolute inset-0 flex items-center justify-center">
+      <div class="max-w-4xl px-6 text-center text-white">
+        <h1
+          class="mb-6 text-5xl font-bold md:text-7xl"
+          [ngClass]="slide.titleClass"
+        >
+          {{ slide.title }}
+        </h1>
+        <p class="text-xl opacity-90 md:text-2xl">
+          {{ slide.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+  }
+
+  <div
+    class="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3"
+  >
+    @for (slide of slides; track $index; let j = $index ) {
+    <button
+      (click)="setSlide(j)"
+      class="w-3 h-3 rounded-full bg-white opacity-50 transition-opacity duration-300 indicator"
+      [ngClass]="{ 'opacity-100': j === activeIndex }"
+    ></button>
+    }
+  </div>
+</section>
